@@ -1,10 +1,17 @@
+import { OpaqueToken } from '@angular/core';
+
+
+export const X_LENGTH = new OpaqueToken('X_LENGTH');
+export const Y_LENGTH = new OpaqueToken('Y_LENGTH');
+
+
 export interface Position {
-  x: number
-  y: number
+  x: number;
+  y: number;
 }
 
 export interface LifeState {
-  x: number
-  y: number
-  live: boolean
+  x: number;
+  y: number;
+  live: boolean;
 }

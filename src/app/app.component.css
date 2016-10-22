@@ -1,0 +1,14 @@
+.raw {
+  height: 10px;
+  padding: 0;
+}
+
+.cell, .cell--active {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+
+.cell--active {
+  background-color: #ccc;
+}

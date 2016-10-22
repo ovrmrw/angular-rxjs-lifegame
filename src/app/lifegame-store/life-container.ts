@@ -1,18 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import * as lodash from 'lodash';
 
 import { Life } from './life';
-import { Position } from './types';
+import { Position, X_LENGTH, Y_LENGTH } from './types';
 
 
 @Injectable()
 export class LifeContainer {
   private lifes: Life[]
 
-  constructor(xCount: number, yCount: number) {
+  constructor(
+    @Inject(X_LENGTH) private xLength: number,
+    @Inject(Y_LENGTH) private yLength: number,
+  ) {
     this.lifes = []
-    const xRange = lodash.range(0, xCount)
-    const yRange = lodash.range(0, yCount)
+    const xRange = lodash.range(0, xLength)
+    const yRange = lodash.range(0, yLength)
     xRange.forEach(x => {
       yRange.forEach(y => {
         this.addLife(new Life(x, y))

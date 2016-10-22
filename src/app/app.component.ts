@@ -1,46 +1,47 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Inject } from '@angular/core';
+import * as lodash from 'lodash';
 
 import { AppService } from './app.service';
-import { Store, LifeState } from './lifegame-store';
+import { Store, LifeState, X_LENGTH, Y_LENGTH } from './lifegame-store';
 
 @Component({
   selector: 'app-root',
   template: `
-    <h1>{{title}}</h1>
-    <div><button (click)="nextCycle()">Next</button></div>
-    <div>{{lifes | json}}</div>
+    <h1>{{title}}</h1>    
+    <div *ngFor="let x of xRange" class="raw">
+      <span *ngFor="let y of yRange" class="cell" [class.cell--active]="pick(x,y).live"></span> 
+    </div>
   `,
   styleUrls: ['./app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  title = 'app works!';
+  title = 'Life Game';
   lifes: LifeState[];
+  xRange: number[];
+  yRange: number[];
 
   constructor(
     private service: AppService,
     private store: Store,
     private cd: ChangeDetectorRef,
+    @Inject(X_LENGTH) private xLength: number,
+    @Inject(Y_LENGTH) private yLength: number,
   ) {
-    this.service.aliveAction(0, 1);
-    this.service.aliveAction(1, 1);
-    this.service.aliveAction(2, 1);
-    this.service.aliveAction(5, 1);
-    this.service.aliveAction(6, 2);
-    this.service.aliveAction(7, 3);
-    this.service.aliveAction(6, 3);
-    this.service.aliveAction(5, 2);
+    this.xRange = lodash.range(0, xLength);
+    this.yRange = lodash.range(0, yLength);
+
+    this.service.initializeLifeContainer();
 
     this.store.getState().subscribe(lifes => {
       this.lifes = lifes;
       this.cd.markForCheck();
-      console.log('next');
       requestAnimationFrame(() => this.service.nextAction());
     });
   }
 
-  nextCycle(): void {
-    this.service.nextAction();
+  pick(x: number, y: number): LifeState | undefined {
+    return this.lifes.find(life => life.x === x && life.y === y);
   }
 
 }
