@@ -1,6 +1,30 @@
 # angular-rxjs-lifegame
 A life game implementation built on Angular and RxJS.
 
+[Demo on GitHub Pages](https://ovrmrw.github.io/angular-rxjs-lifegame/)
+
+---
+
+## Setup
+```
+$ npm install
+```
+
+## Run (JiT)
+```
+$ npm start
+```
+
+## Run (AoT)
+```
+$ npm run aot
+```
+
+## Deploy to GitHub Pages (JiT)
+```
+$ npm run deploy
+```
+
 ---
 
 (angular-cli)
