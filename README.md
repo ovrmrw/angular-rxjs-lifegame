@@ -1,7 +1,7 @@
 # angular-rxjs-lifegame
-A life game implementation built on Angular and RxJS.
+A life game implementation using Angular and RxJS.
 
-[Demo on GitHub Pages](https://ovrmrw.github.io/angular-rxjs-lifegame/)
+[Demo on Firebase Hosting](https://angular-rxjs-lifegame.firebaseapp.com/)
 
 ---
 
@@ -20,7 +20,7 @@ $ npm start
 $ npm run aot
 ```
 
-## Deploy to GitHub Pages (JiT)
+## Deploy to Firebase Hosting (AoT)
 ```
 $ npm run deploy
 ```

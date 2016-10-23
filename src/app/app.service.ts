@@ -1,5 +1,4 @@
 import { Injectable, Inject } from '@angular/core';
-import * as lodash from 'lodash';
 
 import { Dispatcher, Action, AliveAction, NextAction, Position, X_LENGTH, Y_LENGTH } from './lifegame-store';
 
@@ -15,14 +14,14 @@ export class AppService {
 
   initializeLifeContainer(): void {
     const positions: Position[] = [];
-    
-    lodash.range(0, this.xLength).forEach(x => {
-      lodash.range(0, this.yLength).forEach(y => {
-        if (Math.random() < 0.3) {
+
+    for (let x = 0; x < this.xLength; x = (x + 1) | 0) {
+      for (let y = 0; y < this.yLength; y = (y + 1) | 0) {
+        if (Math.random() > 0.75) {
           positions.push({ x, y });
         }
-      });
-    });
+      }
+    }
     this.dispatcher$.next(new AliveAction(positions));
   }
 

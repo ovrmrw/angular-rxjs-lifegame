@@ -1,5 +1,4 @@
 import { Inject, Injectable, NgZone } from '@angular/core';
-import * as lodash from 'lodash';
 
 import { Life } from './life';
 import { Position, X_LENGTH, Y_LENGTH } from './types';
@@ -16,13 +15,13 @@ export class LifeContainer {
   ) {
     this.lifes = [];
 
-    lodash.range(0, xLength).forEach(x => {
+    for (let x = 0; x < xLength; x = (x + 1) | 0) {
       const innerLifes: Life[] = [];
-      lodash.range(0, yLength).forEach(y => {
+      for (let y = 0; y < yLength; y = (y + 1) | 0) {
         innerLifes.push(new Life());
-      });
+      }
       this.lifes.push(innerLifes);
-    });
+    }
   }
 
 

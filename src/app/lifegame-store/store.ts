@@ -25,7 +25,10 @@ export class Store {
     this.dispatcher$
       .scan<LifeContainer>((container, action) => {
         if (action instanceof AliveAction) {
-          action.positions.forEach(position => container.turnAlive(position));
+          const positions = action.positions;
+          for (let i = 0; i < positions.length; i = (i + 1) | 0) {
+            container.turnAlive(positions[i]);
+          }
           return container;
         } else if (action instanceof NextAction) {
           container.tickLifeCycle();

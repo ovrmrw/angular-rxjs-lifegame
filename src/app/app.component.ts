@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
 import * as lodash from 'lodash';
 
 import { AppService } from './app.service';
@@ -10,7 +9,7 @@ import { Store, LifeState, X_LENGTH, Y_LENGTH } from './lifegame-store';
   selector: 'app-root',
   template: `
     <h1>{{title}}</h1>    
-    <div *ngFor="let x of xRange" class="raw">
+    <div *ngFor="let x of xRange" class="row">
       <span *ngFor="let y of yRange" class="cell" [ngClass]="{'cell--active': !!lifes[x][y].alive}"></span> 
     </div>
   `,
