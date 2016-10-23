@@ -1,7 +1,8 @@
 # angular-rxjs-lifegame
 A life game implementation using Angular and RxJS.
 
-[Demo on Firebase Hosting](https://angular-rxjs-lifegame.firebaseapp.com/)
+[Demo on Firebase Hosting (AoT)](https://angular-rxjs-lifegame.firebaseapp.com/)
+[Demo on GitHub Pages (JiT)](https://ovrmrw.github.io/angular-rxjs-lifegame/)
 
 ---
 
