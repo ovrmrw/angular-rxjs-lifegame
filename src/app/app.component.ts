@@ -11,16 +11,17 @@ import { Store, LifeState, X_LENGTH, Y_LENGTH } from './lifegame-store';
   template: `
     <h1>{{title}}</h1>    
     <div *ngFor="let x of xRange" class="raw">
-      <span *ngFor="let y of yRange" class="cell" [ngClass]="{'cell--active': getLife(x, y) | asyncState}"></span> 
+      <span *ngFor="let y of yRange" class="cell" [ngClass]="{'cell--active': !!lifes[x][y].alive}"></span> 
     </div>
   `,
   styleUrls: ['./app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  title = 'Life Game';
+  title = `Life Game (${this.xLength}x${this.yLength})`;
   xRange: number[];
   yRange: number[];
+  lifes: LifeState[][];
 
   constructor(
     private service: AppService,
@@ -37,28 +38,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.service.initializeLifeContainer();
 
-    this.store.getState().subscribe(() => {
-      requestAnimationFrame(() => {
-        this.cd.markForCheck();
-        this.service.nextAction();
-      });
+    this.store.getState().subscribe(lifes => {
+      this.lifes = lifes;
+      this.cd.markForCheck();
+      requestAnimationFrame(() => this.service.nextAction());
     });
-  }
-
-
-  getLife(x: number, y: number): Observable<boolean> {
-    return this.store.getState()
-      // .map(lifes => lifes.find(life => life.x === x && life.y === y))
-      .map(lifes => {
-        for (let i = 0; i < lifes.length; i = (i + 1) | 0) {
-          const life = lifes[i];
-          if (life.x === x && life.y === y) {
-            return life;
-          }
-        }
-        return undefined;
-      })
-      .map(life => life ? life.live : false);
   }
 
 }

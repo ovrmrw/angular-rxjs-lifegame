@@ -11,7 +11,5 @@ export interface Position {
 }
 
 export interface LifeState {
-  x: number;
-  y: number;
-  live: boolean;
+  alive: number;
 }
