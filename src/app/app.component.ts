@@ -41,8 +41,8 @@ export class AppComponent implements OnInit {
 
     this.store.getState().subscribe(lifes => {
       this.lifes = lifes;
-      this.cd.markForCheck();      
       this.counter++;
+      this.cd.markForCheck();
       requestAnimationFrame(() => this.service.nextAction());
     });
   }
