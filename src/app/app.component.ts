@@ -48,7 +48,16 @@ export class AppComponent implements OnInit {
 
   getLife(x: number, y: number): Observable<boolean> {
     return this.store.getState()
-      .map(lifes => lifes.find(life => life.x === x && life.y === y))
+      // .map(lifes => lifes.find(life => life.x === x && life.y === y))
+      .map(lifes => {
+        for (let i = 0; i < lifes.length; i = (i + 1) | 0) {
+          const life = lifes[i];
+          if (life.x === x && life.y === y) {
+            return life;
+          }
+        }
+        return undefined;
+      })
       .map(life => life ? life.live : false);
   }
 
