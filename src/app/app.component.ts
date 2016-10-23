@@ -10,7 +10,7 @@ import { Store, LifeState, X_LENGTH, Y_LENGTH } from './lifegame-store';
   template: `
     <h1>{{title}}</h1>    
     <div *ngFor="let x of xRange" class="row">
-      <span *ngFor="let y of yRange" class="cell" [ngClass]="{'cell--active': lifes && lifes[x][y].alive}"></span> 
+      <span *ngFor="let y of yRange" class="cell" [ngClass]="{'cell--active': !!lifes[x][y].alive}"></span> 
     </div>
   `,
   styleUrls: ['./app.component.css'],
@@ -35,15 +35,13 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit() {
-    setTimeout(() => {
-      this.service.initializeLifeContainer();
+    this.service.initializeLifeContainer();
 
-      this.store.getState().subscribe(lifes => {
-        this.lifes = lifes;
-        this.cd.markForCheck();
-        requestAnimationFrame(() => this.service.nextAction());
-      });
-    }, 0);
+    this.store.getState().subscribe(lifes => {
+      this.lifes = lifes;
+      this.cd.markForCheck();
+      requestAnimationFrame(() => this.service.nextAction());
+    });
   }
 
 }
