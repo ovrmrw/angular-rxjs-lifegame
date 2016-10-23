@@ -15,6 +15,7 @@ export class AppService {
 
   initializeLifeContainer(): void {
     const positions: Position[] = [];
+    
     lodash.range(0, this.xLength).forEach(x => {
       lodash.range(0, this.yLength).forEach(y => {
         if (Math.random() < 0.3) {
@@ -24,6 +25,7 @@ export class AppService {
     });
     this.dispatcher$.next(new AliveAction(positions));
   }
+
 
   nextAction(): void {
     this.dispatcher$.next(new NextAction());

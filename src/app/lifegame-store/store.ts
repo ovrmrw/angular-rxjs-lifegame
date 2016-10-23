@@ -10,7 +10,7 @@ import { LifeState, Position } from './types';
 
 @Injectable()
 export class Store {
-  readonly provider$: Provider<LifeState[]>;
+  private provider$: Provider<LifeState[]>;
 
   constructor(
     private dispatcher$: Dispatcher<Action>,
@@ -35,8 +35,9 @@ export class Store {
         }
       }, this.lifeContainer)
       .map<LifeState[]>(container => {
-        const lifes = container.getLifes().map(life => lodash.pick(life, ['x', 'y', 'live']) as LifeState);
-        return lodash.cloneDeep(lifes);
+        // const lifes = container.getLifes().map(life => lodash.pick(life, ['x', 'y', 'live']) as LifeState);
+        // return lodash.cloneDeep(lifes);
+        return container.getLifes();
       })
       .subscribe(lifes => {
         this.provider$.next(lifes);

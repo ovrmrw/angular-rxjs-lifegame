@@ -10,7 +10,7 @@ import { StoreModule } from './lifegame-store';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

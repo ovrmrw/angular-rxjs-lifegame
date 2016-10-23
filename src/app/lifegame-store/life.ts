@@ -13,6 +13,7 @@ export class Life implements LifeState {
     this.arounds = this.generateArounds(x, y)
   }
 
+
   generateArounds(x: number, y: number): Position[] {
     const left = { x, y: y - 1 };
     const right = { x, y: y + 1 };
@@ -25,6 +26,7 @@ export class Life implements LifeState {
     return [leftTop, centerTop, rightTop, left, right, leftBottom, centerBottom, rightBottom];
   }
 
+
   calculateNextLiveState(aliveLifeCount: number): void {
     if (!this.live && aliveLifeCount === 3) { // birth
       this.nextLiveState = true
@@ -35,7 +37,9 @@ export class Life implements LifeState {
     }
   }
 
+
   forwardLifeCycle(): void {
     this.live = this.nextLiveState
   }
+
 }
