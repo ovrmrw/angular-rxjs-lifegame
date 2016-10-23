@@ -12,12 +12,14 @@ import { Store, LifeState, X_LENGTH, Y_LENGTH } from './lifegame-store';
     <div *ngFor="let x of xRange" class="row">
       <span *ngFor="let y of yRange" class="cell" [ngClass]="{'cell--active': !!lifes[x][y].alive}"></span> 
     </div>
+    <div>generation counter: {{counter}}</div>
   `,
   styleUrls: ['./app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
   title = `Life Game (${this.xLength}x${this.yLength})`;
+  counter: number = 0;
   xRange: number[];
   yRange: number[];
   lifes: LifeState[][];
@@ -39,7 +41,8 @@ export class AppComponent implements OnInit {
 
     this.store.getState().subscribe(lifes => {
       this.lifes = lifes;
-      this.cd.markForCheck();
+      this.cd.markForCheck();      
+      this.counter++;
       requestAnimationFrame(() => this.service.nextAction());
     });
   }
