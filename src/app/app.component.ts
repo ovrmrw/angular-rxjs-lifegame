@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   yRange: number[];
   lifes: LifeState[][];
   startTime: number;
-  fps: string;
+  fps: string = "----";
 
   constructor(
     private service: AppService,
@@ -47,7 +47,9 @@ export class AppComponent implements OnInit {
     this.store.getState().subscribe(lifes => {
       this.lifes = lifes;
       this.counter = this.counter + 1;
-      this.fps = (this.counter / (new Date().valueOf() - this.startTime) * 1000).toFixed(2);
+      if (this.counter > 20) {
+        this.fps = (this.counter / (new Date().valueOf() - this.startTime) * 1000).toFixed(2);
+      }
       this.cd.markForCheck();
       requestAnimationFrame(() => this.service.forwardLifesGeneration());
     });
