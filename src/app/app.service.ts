@@ -12,21 +12,21 @@ export class AppService {
   ) { }
 
 
-  initializeLifeContainer(): void {
-    const positions: Position[] = [];
+  initializeLifes(): void {
+    const alivePositions: Position[] = [];
 
     for (let x = 0; x < this.xLength; x = (x + 1) | 0) {
       for (let y = 0; y < this.yLength; y = (y + 1) | 0) {
         if (Math.random() > 0.75) {
-          positions.push({ x, y });
+          alivePositions.push({ x, y });
         }
       }
     }
-    this.dispatcher$.next(new AliveAction(positions));
+    this.dispatcher$.next(new AliveAction(alivePositions));
   }
 
 
-  nextAction(): void {
+  forwardLifesGeneration(): void {
     this.dispatcher$.next(new NextAction());
   }
 

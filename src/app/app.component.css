@@ -2,7 +2,7 @@
   display: flex;
 }
 
-.cell, .cell--active {
+.cell {
   width: 10px;
   height: 10px;
 }

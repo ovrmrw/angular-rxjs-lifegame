@@ -37,13 +37,13 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit() {
-    this.service.initializeLifeContainer();
+    this.service.initializeLifes();
 
     this.store.getState().subscribe(lifes => {
       this.lifes = lifes;
       this.counter++;
       this.cd.markForCheck();
-      requestAnimationFrame(() => this.service.nextAction());
+      requestAnimationFrame(() => this.service.forwardLifesGeneration());
     });
   }
 
