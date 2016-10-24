@@ -13,6 +13,7 @@ import { Store, LifeState, X_LENGTH, Y_LENGTH } from './lifegame-store';
       <span *ngFor="let y of yRange" class="cell" [ngClass]="{'cell--active': !!lifes[x][y].alive}"></span> 
     </div>
     <div>generation counter: {{counter}}</div>
+    <div>FPS: {{fps}}</div>
   `,
   styleUrls: ['./app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -23,6 +24,8 @@ export class AppComponent implements OnInit {
   xRange: number[];
   yRange: number[];
   lifes: LifeState[][];
+  startTime: number;
+  fps: string;
 
   constructor(
     private service: AppService,
@@ -42,6 +45,11 @@ export class AppComponent implements OnInit {
     this.store.getState().subscribe(lifes => {
       this.lifes = lifes;
       this.counter++;
+      if (!this.startTime) {
+        this.startTime = new Date().valueOf();
+      } else {
+        this.fps = (this.counter / (new Date().valueOf() - this.startTime) * 1000).toFixed(2);
+      }
       this.cd.markForCheck();
       requestAnimationFrame(() => this.service.forwardLifesGeneration());
     });
