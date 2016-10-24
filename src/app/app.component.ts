@@ -42,14 +42,12 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.service.initializeLifes();
 
+    this.startTime = new Date().valueOf();
+
     this.store.getState().subscribe(lifes => {
       this.lifes = lifes;
-      this.counter++;
-      if (!this.startTime) {
-        this.startTime = new Date().valueOf();
-      } else {
-        this.fps = (this.counter / (new Date().valueOf() - this.startTime) * 1000).toFixed(2);
-      }
+      this.counter = this.counter + 1;
+      this.fps = (this.counter / (new Date().valueOf() - this.startTime) * 1000).toFixed(2);
       this.cd.markForCheck();
       requestAnimationFrame(() => this.service.forwardLifesGeneration());
     });
